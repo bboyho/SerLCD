@@ -1,5 +1,5 @@
 # SerLCD_Arduino_Example_v3
-  Modified example code to change baud rates and recover a bricked serial enabled LCD. For a full tutorial of how to use a SparkFun Serial Enabled LCD with a PIC16F88, try looking through here => [https://www.sparkfun.com/tutorials/246#comment-563918fb757b7f100d8b4567](https://www.sparkfun.com/tutorials/246#comment-563918fb757b7f100d8b4567).
+  Modified example code to change baud rates and recover a bricked serial enabled LCD. For a full tutorial of how to use a SparkFun Serial Enabled LCD with a PIC16F88, try looking through here => [https://www.sparkfun.com/tutorials/246](https://www.sparkfun.com/tutorials/246).
 
 Repository Contents
 -------------------
