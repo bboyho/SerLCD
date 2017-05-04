@@ -7,7 +7,7 @@ Repository Contents
 
 Documentation
 -------------------
-* [SerLCD Quickstart Guide](https://www.sparkfun.com/tutorials/246#comment-563918fb757b7f100d8b4567)
+* [SerLCD Quickstart Guide](https://www.sparkfun.com/tutorials/246)
 * [SerLCD v2.5 Application Note](https://learn.sparkfun.com/resources/113)
 
 License Information
