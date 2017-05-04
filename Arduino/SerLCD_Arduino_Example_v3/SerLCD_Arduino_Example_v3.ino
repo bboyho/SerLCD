@@ -1,4 +1,5 @@
 /***********************************************************************
+//SerLCD_Arduino_Example_v3.ino
 SerLCD Example Code
 SparkFun Electronics
 Modified by: Ho Yun "Bobby" Chan
@@ -7,10 +8,13 @@ By: Joel Bartlett
 December 20, 2012
 
 This code uses the information presented in the SerLCD Datasheet
+[ https://www.sparkfun.com/datasheets/LCD/SerLCD_V2_5.PDF ]
 to create an Arduino example using the SerLCD from SparkFun Electonics.
 Each of the SerLCD's capabilities is broken up into seperate functions
 within the sketch. Simply call each function with the correct parameters
 to get the desired result form the LCD screen.
+
+For documentation, check the quickstart guide [ https://www.sparkfun.com/tutorials/246 ].
 
 This code was developed for the Arduino IDE v102
 
@@ -96,6 +100,10 @@ void resetDefault() {
      turned down or you need to change the contrast. If this happens
      just let the code cycle through to turn the brightness back on or
      adjust the potentiometer
+     
+    If this does not work, the last resort is to try using a Pickit 3 Programmer with
+    the steps listed in the SparkFun "Tech Support Tips/Troubleshooting/Common Issues"
+    [ https://www.sparkfun.com/tutorials/246#comment-563918fb757b7f100d8b4567 ]
     */
   }
 }
