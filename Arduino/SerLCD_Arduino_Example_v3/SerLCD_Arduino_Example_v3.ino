@@ -132,7 +132,8 @@ void set_20x4(){//set character LCD as 20x4
 
 //-------------------------------------------------------------------------------------------
 
-void set_test(){//used to test the character LCD after reconfiguring # of char and lines  
+void set_test(){//used to test the character LCD after reconfiguring # of char and lines
+  selectLineOne();//start from first line
   LCD.print("testTESTtestTESTENDH");
   delay(500);
   LCD.print("TESTtestTESTtestendH");
