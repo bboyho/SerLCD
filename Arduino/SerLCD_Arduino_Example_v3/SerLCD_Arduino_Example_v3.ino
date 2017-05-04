@@ -2,7 +2,7 @@
 SerLCD Example Code
 SparkFun Electronics
 Modified by: Ho Yun "Bobby" Chan
-November 10th, 2015
+May 3rd, 2017
 By: Joel Bartlett
 December 20, 2012
 
@@ -12,7 +12,7 @@ Each of the SerLCD's capabilities is broken up into seperate functions
 within the sketch. Simply call each function with the correct parameters
 to get the desired result form the LCD screen.
 
-This code was devoloped for the Arduino IDE v102
+This code was developed for the Arduino IDE v102
 
 To use, connect the following pins
 VDD -> 5V
@@ -43,34 +43,43 @@ If we meet some day, and you think this stuff is worth it, you can buy me a beer
 SoftwareSerial LCD(4, 7); // RX, TX
 
 //-------------------------------------------------------------------------------------------
-void setup()
-{
+
+void setup(){
   LCD.begin(9600);// all SerLCDs come at 9600 Baud by default
   LCD.print("--------------------------------------------------------------------------------");
   delay(3000);// delay for testing to see if all the character blocks are working
 
   //************************************************************
   //this block of code is used to reset a bricked LCD screen, uncomment to use
-  ///*
+  /*
   pinMode(13, OUTPUT);//used to indicate when using resetDefault():
   digitalWrite(13, HIGH);// turn the LED ON
   resetDefault(); //reset screen
   digitalWrite(13, LOW);// turn the LED OFF
-  //*/
+  */
   //************************************************************
   
-  //changeBaud();//enters function to change baud
+  //Uncomment any of these to configure the character LCD's
+  //number of characters wide and lines
+  //set_16x2(); //set as 16x2
+  //set_20x4(); //set as 20x4
+  
+  //Uncomment this line to enters function to change baud
+  //changeBaud();
 
 }
+
 //-------------------------------------------------------------------------------------------
-void loop()
-{
-  scrollingMarquee();
-  tempAndHumidity();
-  counter();
-  backlight();
-  cursors();
+
+void loop(){
+  //set_test();  //uncomment to test LCD after changing # of characters wide and lines
+  scrollingMarquee();//example of scrolling text across the LCD
+  tempAndHumidity();//example of displaying values
+  counter(); //display counter
+  backlight(); //test backlight
+  cursors(); //test cursors
 }
+
 //-------------------------------------------------------------------------------------------
 
 void resetDefault() {
@@ -91,7 +100,43 @@ void resetDefault() {
   }
 }
 
-void changeBaud() {
+//-------------------------------------------------------------------------------------------
+
+void set_16x2(){//set character LCD as 16x2
+  LCD.write(0x7C); //command flag
+  LCD.write(0x04);     //16 char wide
+  LCD.write(0x7C); //command flag
+  LCD.write(0x06);     //2 lines
+  /*NOTE: Make sure to power cycle the serial enabled LCD 
+  after re-configuring the # char and lines.*/
+}
+
+//-------------------------------------------------------------------------------------------
+
+void set_20x4(){//set character LCD as 20x4
+  LCD.write(0x7C); //command flag
+  LCD.write(0x03);     //20 char wide
+  LCD.write(0x7C); //command flag
+  LCD.write(0x05);     //4 lines
+  /*NOTE: Make sure to power cycle the serial enabled LCD 
+  after re-configuring the # char and lines.*/
+}
+
+//-------------------------------------------------------------------------------------------
+
+void set_test(){//used to test the character LCD after reconfiguring # of char and lines  
+  LCD.print("testTESTtestTESTENDH");
+  delay(500);
+  LCD.print("TESTtestTESTtestendH");
+  delay(500);
+  LCD.print("testTESTtestTESTENDH");
+  delay(500);
+  LCD.print("TESTtestTESTtestendH");
+  delay(500);
+}
+//-------------------------------------------------------------------------------------------
+
+void changeBaud(){
   LCD.write(0x7C);// special command byte => 0d124 or 0x7C
   LCD.write(0x0B); //change current baud to 2400 baud
 
@@ -102,52 +147,59 @@ void changeBaud() {
   14400 baud, "<control>n" => 0x0E
   19200 baud, "<control>o" => 0x0F
   38400 baud, "<control>p" => 0x10
-  reset to default baud while LCD is the splash screen is still active, "<control>r" => 0x12
-  */
+  reset to default baud while LCD is the splash screen is still active, "<control>r" => 0x12*/
 }
 
-void clearScreen()
-{
+//-------------------------------------------------------------------------------------------
+
+void clearScreen(){
   //clears the screen, you will use this a lot!
   LCD.write(0xFE);
   LCD.write(0x01);
 }
+
 //-------------------------------------------------------------------------------------------
-void selectLineOne()
-{
+
+void selectLineOne(){
   //puts the cursor at line 0 char 0.
   LCD.write(0xFE); //command flag
   LCD.write(128); //position
 }
+
 //-------------------------------------------------------------------------------------------
-void selectLineTwo()
-{
+
+void selectLineTwo(){
   //puts the cursor at line 0 char 0.
   LCD.write(0xFE); //command flag
   LCD.write(192); //position
 }
+
 //-------------------------------------------------------------------------------------------
-void moveCursorRightOne()
-{
+
+void moveCursorRightOne(){
   //moves the cursor right one space
   LCD.write(0xFE); //command flag
   LCD.write(20); // 0x14
 }
+
 //-------------------------------------------------------------------------------------------
-void moveCursorLeftOne()
-{
+
+void moveCursorLeftOne(){
   //moves the cursor left one space
   LCD.write(0xFE); //command flag
   LCD.write(16); // 0x10
 }
+
 //-------------------------------------------------------------------------------------------
-void scrollRight()
-{
+
+void scrollRight(){
   //same as moveCursorRightOne
   LCD.write(0xFE); //command flag
   LCD.write(20); // 0x14
 }
+
 //-------------------------------------------------------------------------------------------
+
 void scrollLeft()
 {
   //same as moveCursorLeftOne
@@ -155,64 +207,72 @@ void scrollLeft()
   LCD.write(24); // 0x18
 }
 //-------------------------------------------------------------------------------------------
-void turnDisplayOff()
-{
+void turnDisplayOff(){
   //this tunrs the display off, but leaves the backlight on.
   LCD.write(0xFE); //command flag
   LCD.write(8); // 0x08
 }
+
 //-------------------------------------------------------------------------------------------
-void turnDisplayOn()
-{
+
+void turnDisplayOn(){
   //this turns the dispaly back ON
   LCD.write(0xFE); //command flag
   LCD.write(12); // 0x0C
 }
+
 //-------------------------------------------------------------------------------------------
-void underlineCursorOn()
-{
+
+void underlineCursorOn(){
   //turns the underline cursor on
   LCD.write(0xFE); //command flag
   LCD.write(14); // 0x0E
 }
+
 //-------------------------------------------------------------------------------------------
+
 void underlineCursorOff()
 {
   //turns the underline cursor off
   LCD.write(0xFE); //command flag
   LCD.write(12); // 0x0C
 }
+
 //-------------------------------------------------------------------------------------------
-void boxCursorOn()
-{
+
+void boxCursorOn(){
   //this turns the box cursor on
   LCD.write(0xFE); //command flag
   LCD.write(13); // 0x0D
 }
+
 //-------------------------------------------------------------------------------------------
-void boxCursorOff()
-{
+
+void boxCursorOff(){
   //this turns the box cursor off
   LCD.write(0xFE); //command flag
   LCD.write(12); // 0x0C
 }
+
 //-------------------------------------------------------------------------------------------
-void toggleSplash()
-{
+
+void toggleSplash(){
   //this toggles the spalsh screenif off send this to turn onif on send this to turn off
   LCD.write(0x7C); //command flag = 124 dec
   LCD.write(9); // 0x09
 }
+
 //-------------------------------------------------------------------------------------------
-int backlight(int brightness)// 128 = OFF, 157 = Fully ON, everything inbetween = varied brightnbess
-{
+
+int backlight(int brightness){// 128 = OFF, 157 = Fully ON, everything inbetween = varied brightnbess
   //this function takes an int between 128-157 and turns the backlight on accordingly
   LCD.write(0x7C); //NOTE THE DIFFERENT COMMAND FLAG = 124 dec
   LCD.write(brightness); // any value between 128 and 157 or 0x80 and 0x9D
 }
+
 //-------------------------------------------------------------------------------------------
-void scrollingMarquee()
-{
+
+void scrollingMarquee(){
   //This function scroll text across the screen on both lines
   clearScreen(); // it's always good to clear the screen before movonh onto a new print
   for (int j = 0; j < 17; j++)
@@ -229,9 +289,10 @@ void scrollingMarquee()
     clearScreen();
   }
 }
+
 //-------------------------------------------------------------------------------------------
-void counter()
-{
+
+void counter(){
   //this function prints a simple counter that counts to 10
   clearScreen();
   for (int i = 0; i <= 10; i++)
@@ -242,7 +303,9 @@ void counter()
     clearScreen();
   }
 }
+
 //-------------------------------------------------------------------------------------------
+
 void tempAndHumidity()
 {
   //this function shows how you could read the data from a temerature and humidity
@@ -266,9 +329,10 @@ void tempAndHumidity()
   LCD.print("%");
   delay(2500);
 }
+
 //-------------------------------------------------------------------------------------------
-void backlight()
-{
+
+void backlight(){
   //this function shows the different brightnesses to which the backlight can be set
   clearScreen();
   for (int i = 128; i < 158; i += 2) // 128-157 are the levels from off to full brightness
@@ -281,9 +345,10 @@ void backlight()
     clearScreen();
   }
 }
+
 //-------------------------------------------------------------------------------------------
-void cursors()
-{
+
+void cursors(){
   //this function shows the different cursors avaiable on the SerLCD
   clearScreen();
 
