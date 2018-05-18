@@ -21,7 +21,7 @@ This code was developed for the Arduino IDE v102
 To use, connect the following pins
 VDD -> 5V
 GND -> GND
-LCD RX -> Arduino Software defined serial TX (pin 7)
+LCD RX -> Arduino Software defined serial TX (pin 11)
 
 ***Don't forgect to disconnect the LCD's RX pin from the TX pin of
 the Arduino's UART line while programming!***
@@ -44,7 +44,7 @@ If we meet some day, and you think this stuff is worth it, you can buy me a beer
 ************************************************************************/
 #include <SoftwareSerial.h>
 
-SoftwareSerial LCD(4, 7); // RX, TX
+SoftwareSerial LCD(10, 11); // Arduino SS_RX = pin 10 (unused), Arduino SS_TX = pin 11
 
 //-------------------------------------------------------------------------------------------
 
